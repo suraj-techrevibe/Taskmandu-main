@@ -1,0 +1,6 @@
+{
+  "name": "Workforce Management System",
+  "description": "A comprehensive corporate workforce management portal that streamlines roster scheduling, GPS-based daily check-ins, employee onboarding and offboarding workflows, task allocation, and operational analytics dashboards.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

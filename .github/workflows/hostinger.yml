@@ -1,0 +1,67 @@
+name: Deploy to Hostinger VPS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            echo "🚀 Starting deployment..."
+
+            TARGET_DIR="/root/Taskmandu"
+            if [ ! -d "$TARGET_DIR" ]; then
+              if [ -d "/root/taskmandu" ]; then
+                TARGET_DIR="/root/taskmandu"
+              else
+                echo "📁 Project directory not found. Cloning repository..."
+                git clone https://github.com/adxps/Taskmandu.git "$TARGET_DIR"
+              fi
+            fi
+
+            cd "$TARGET_DIR"
+
+            echo "📥 Pulling latest code in $TARGET_DIR..."
+            git pull origin main
+
+            echo "⚙️ Building Backend..."
+            cd "$TARGET_DIR/backend"
+            echo "📦 Installing backend dependencies..."
+            npm install
+            echo "🏗️ Building backend TypeScript..."
+            npm run build
+
+            echo "⚙️ Building Frontend..."
+            cd "$TARGET_DIR/frontend"
+            echo "📦 Installing frontend dependencies..."
+            npm install
+            echo "🏗️ Building frontend SPA..."
+            npm run build
+
+            echo "🔄 Managing PM2 Processes for Backend & Frontend..."
+            cd "$TARGET_DIR"
+
+            # Remove stale/broken process registrations if any
+            pm2 delete taskmandu-backend taskmandu-frontend 12 2>/dev/null || true
+
+            # Start or restart both processes using ecosystem config
+            pm2 start ecosystem.config.cjs
+
+            echo "🔄 Saving PM2 process list..."
+            pm2 save
+
+            echo "✅ Deployment completed successfully!"

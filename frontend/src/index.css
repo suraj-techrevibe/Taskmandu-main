@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* Geometric Balance palette variables */
+  --color-bg-main: #F8FAFC;
+  --color-sidebar-bg: #0F172A;
+  --color-accent-blue: #3B82F6;
+  --color-text-main: #1E293B;
+  --color-text-muted: #64748B;
+  --color-border-main: #E2E8F0;
+
+  /* Global Slate & Gray color overrides to enforce clean Slate aesthetics */
+  --color-slate-50: #F8FAFC;
+  --color-slate-100: #F1F5F9;
+  --color-slate-200: #E2E8F0;
+  --color-slate-300: #CBD5E1;
+  --color-slate-400: #94A3B8;
+  --color-slate-500: #64748B;
+  --color-slate-600: #475569;
+  --color-slate-700: #334155;
+  --color-slate-800: #1E293B;
+  --color-slate-900: #0F172A;
+
+  /* Green (Teal) ramp — defines the app's green accent used by action buttons */
+  --color-teal-150: #B3F0E0;
+  --color-teal-750: #0F7A68;
+  --color-teal-850: #0E5B4C;
+
+  /* Remap Indigo to the Accent Blue to support standard template button highlighting */
+  --color-indigo-50: #ECFDF5; /* Match badge success/light accents */
+  --color-indigo-100: #EFF6FF;
+  --color-indigo-200: #DBEAFE;
+  --color-indigo-300: #BFDBFE;
+  --color-indigo-400: #93C5FD;
+  --color-indigo-500: #60A5FA;
+  --color-indigo-600: #3B82F6; /* Primary Action */
+  --color-indigo-700: #2563EB;
+  --color-indigo-800: #1D4ED8;
+  --color-indigo-900: #0F172A; /* Sidebar and Dark headers */
+  --color-indigo-950: #020617;
+
+  /* Geometric sharp corners override */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 4px;
+  --radius-lg: 4px;
+  --radius-xl: 4px;
+  --radius-2xl: 4px;
+  --radius-3xl: 4px;
+
+  /* Subtle border and shadow details */
+  --shadow-xs: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
+  --shadow-sm: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
+  --shadow-md: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
+  --shadow-lg: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
+}
+
+@layer base {
+  body {
+    background-color: var(--color-bg-main);
+    color: var(--color-text-main);
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  /* Hide scrollbars everywhere (scrolling still works) */
+  * {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Legacy Edge/IE */
+  }
+  *::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Edge */
+  }
+}
+
+@layer utilities {
+  .animate-fadeIn {
+    animation: fadeIn 0.3s ease-out forwards;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

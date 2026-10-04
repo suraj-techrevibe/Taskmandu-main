@@ -1,0 +1,12 @@
+# Design audit artifacts (screenshots, playwright session logs)
+design-audit/
+.playwright-mcp/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+.env.*
+.kilo
